@@ -19,19 +19,9 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: "/"
+            path: "/greeter"
             backend:
               service:
                 name: app
-                port:
-                  name: http
-    - host: "*"
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/favicon.ico"
-            backend:
-              service:
-                name: favicon
                 port:
                   name: http
