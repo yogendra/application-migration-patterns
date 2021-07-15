@@ -55,7 +55,7 @@
     cd $PROJECT_ROOT/examples/greeter
     ```
 
-1. (Optional) Create Container image and push to registry. 
+1. (Optional) Create Container image and push to registry.
 
     ```bash
     docker build -t ghcr.io/yogendra/javaee-greeter:latest -f Dockerfile .
