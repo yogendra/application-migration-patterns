@@ -1,0 +1,4 @@
+wildfly-24.0.0.Final
+examples/wildfly-quickstart
+**/*kubeconfig*
+.envrc

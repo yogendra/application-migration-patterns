@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app
+  labels:
+    app: app
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.class: contour
+    kubernetes.io/tls-acme: "true"
+spec:
+  tls:
+    - secretName: app-tls
+      hosts:
+        - greeter.tamday.cna-demo.ga
+  rules:
+    - host: greeter.tamday.cna-demo.ga
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: app
+                port:
+                  name: http
+    - host: "*"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/favicon.ico"
+            backend:
+              service:
+                name: favicon
+                port:
+                  name: http

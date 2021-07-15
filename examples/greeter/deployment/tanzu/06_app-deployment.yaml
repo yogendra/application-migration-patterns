@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - image: ghcr.io/yogendra/javaee-greeter:latest
+          name: app
+          ports:
+            - containerPort: 8009
+            - containerPort: 8080
+            - containerPort: 8443
+            - containerPort: 9990
+            - containerPort: 9993
+            - containerPort: 4712
+            - containerPort: 4713
+          resources:
+              requests:
+                memory: "1024Mi"
+                cpu: "500m"
+              limits:
+                memory: "2048Mi"
+                cpu: "1000m"
+          volumeMounts:
+            - mountPath: /opt/jboss/wildfly/standalone/configuration/staging
+              name: app-secret
+      restartPolicy: Always
+      volumes:
+        - name: app-secret
+          secret:
+            secretName: app-secret
+

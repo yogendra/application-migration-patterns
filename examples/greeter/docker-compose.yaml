@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  database:
+    image: mysql:8
+    ports:
+        - "3306:3306"    
+    # volumes:
+    #     - ./src/main/resources/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+    #     - ./src/main/resources/02_import.sql:/docker-entrypoint-initdb.d/02_import.sql
+    environment:
+        MYSQL_ROOT_USER: root
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: greeter
+        MYSQL_USER: greeter
+        MYSQL_PASSWORD: greeter
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8009:8009"
+      - "8080:8080"
+      - "8443:8443"
+      - "9990:9990"
+      - "9993:9993"
+      - "4712:4712"
+      - "4713:4713"
+    volumes:
+      - ./deployment/jboss/standalone/configuration:/opt/jboss/wildfly/standalone/configuration/staging
